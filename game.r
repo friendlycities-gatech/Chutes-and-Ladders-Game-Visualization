@@ -23,12 +23,20 @@ C_L_edges <- read.csv("C_L_edges.csv", header=TRUE, as.is=TRUE)
 
 net <- graph_from_data_frame(d=C_L_edges, vertices=C_L_nodes, directed=TRUE) 
 netup <- graph_from_data_frame(d=C_L_edges, vertices=C_L_nodes, directed=TRUE)
-V(netup)$frame.color <- NA 
+V(netup)$frame.color <- NA
+if (vcount(net) > 101) {
+	for (i in 102:vcount(net)) {
+		if (i > 100) {
+			net <- delete_vertices(net, 102)
+			netup <- delete_vertices(netup, 102)
+		}
+	}
+}
 
 ##### Give it coordinates -- this is weird #######
 tkid = tkplot(net,canvas.width = 350, canvas.height = 350)
-transLat <- C_L_nodes$latitude
-transLon <- 10-C_L_nodes$longitude
+transLat <- C_L_nodes$latitude[0:101]
+transLon <- 10-C_L_nodes$longitude[0:101]
 coords <- cbind(transLon,transLat)
 tkplot.setcoords(tkid, coords)
 l <- tkplot.getcoords(tkid) # grab the coordinates from tkplot
