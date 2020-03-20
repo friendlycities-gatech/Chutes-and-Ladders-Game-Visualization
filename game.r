@@ -18,7 +18,7 @@ library("ndtv")
 library("igraph")
 
 ###Read in data, create network#####
-C_L_nodes <- read.csv("C_L_nodes_mod.csv", header=TRUE, as.is=TRUE)
+C_L_nodes <- read.csv("C_L_nodes.csv", header=TRUE, as.is=TRUE)
 C_L_edges <- read.csv("C_L_edges.csv", header=TRUE, as.is=TRUE)
 
 net <- graph_from_data_frame(d=C_L_edges, vertices=C_L_nodes, directed=TRUE) 
